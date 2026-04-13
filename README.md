@@ -26,8 +26,8 @@ A C# console-based chatbot designed to educate South African citizens about cybe
 2. Open the project file (`CyberSecurityChatbot.csproj`) in Visual Studio 2022.
 3. Ensure the `greeting.wav` file is present and its Copy to Output Directory property is set to Copy Always.
 4. Press `Ctrl+F5` (Start Without Debugging) to run.
-4. Type `help` to see available topics, or ask about `password`, `phishing`, or `safe browsing`.
-5. Type `exit` to quit.
+5. Type `help` to see available topics, or ask about `password`, `phishing`, or `safe browsing`.
+6. Type `exit` to quit.
 
 ### Example Interaction
 
@@ -63,14 +63,15 @@ CyberSecurityChatbot/ ├── .github/workflows/ci.yml ├── AudioPlayer.c
 | 6 | Added README and GitHub Actions CI workflow |
 
 ## Video Presentation
-An unlisted YouTube video demonstrating the code structure, logic, and a live run of the chatbot is available here:  
-[Insert your YouTube link here]
+I recorded a screen demo: file name `Screen Recording 2026-04-13 173506.mp4`.
 
-Note: The video uses my own voice (no AI voice) as required by the assessment.
+### Demo video  
+
+[Play the demo video](./media/screen-recording-2026-04-13-173506.mp4)
 
 ## Author & Assessment
 - Module: Programming POE – Part 1    
-- Date:13 April 2026
+- Date: 13 April 2026
 
 ## References
 Pieterse, H. 2021. The Cyber Threat Landscape in South Africa: A 10-Year Review. African Journal of Information and Communication, 28(28). doi:10.23962/10539/32213
