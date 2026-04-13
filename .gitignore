@@ -1,0 +1,33 @@
+﻿# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+bin/
+obj/
+Debug/
+Release/
+
+# Rider / JetBrains
+.idea/
+
+# VS Code
+.vscode/
+
+# Packages
+*.nupkg
+packages/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+
+# Other
+*.tmp
+*.vsidx

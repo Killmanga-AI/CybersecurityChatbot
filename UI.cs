@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 public static class UI
 {
@@ -7,23 +7,30 @@ public static class UI
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine(@"
-         ____  ____  ____  ___  _____  ____
-        / __ \(  _ \(  _ \(_ _)(__  __)(_  _)
-       ( (_) ) )   / ) _ <  ) (   / /    )(  
-        \____/(_)\_)(____/(____) (___)  (__) 
-        ");
+ ██████╗ ██████╗ ██████╗ ██╗████████╗
+██╔═══██╗██╔══██╗██╔══██╗██║╚══██╔══╝
+██║   ██║██████╔╝██████╔╝██║   ██║   
+██║   ██║██╔══██╗██╔══██╗██║   ██║   
+╚██████╔╝██║  ██║██████╔╝██║   ██║   
+ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝   ╚═╝   
+    ");
+
+        Console.ForegroundColor = ConsoleColor.DarkCyan;
+        Console.WriteLine("        ──[ ORBIT SECURITY SYSTEM ]──");
+
         Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("      >> Orbiting Your Digital Defense <<");
+        Console.WriteLine("         >> Orbiting Your Digital Defense <<");
+
         Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("=================================================");
+        Console.WriteLine("═════════════════════════════════════════════════");
         Console.ResetColor();
     }
 
     public static string GetUserName()
     {
         Console.Write("\n[?] Enter your name: ");
-        string name = Console.ReadLine();
-        if (string.IsNullOrWhiteSpace(name)) name = "User";
+        string? raw = Console.ReadLine();
+        string name = string.IsNullOrWhiteSpace(raw) ? "User" : raw.Trim();
         Console.Clear();
         DisplayHeader();
         Console.ForegroundColor = ConsoleColor.Green;

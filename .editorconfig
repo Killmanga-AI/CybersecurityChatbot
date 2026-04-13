@@ -1,0 +1,30 @@
+root = true
+
+[*]
+charset = utf-8-bom
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+tab_width = 4
+max_line_length = off
+
+[*.{cs,cshtml,razor,vb}]
+ensure_newline_at_end_of_file = true
+
+[*.cs]
+# C# code-style preferences
+dotnet_sort_system_directives_first = true
+csharp_new_line_before_open_brace = all
+csharp_indent_switch_labels = true
+csharp_preserve_single_line_blocks = false
+csharp_style_var_for_built_in_types = false:suggestion
+csharp_style_var_when_type_is_apparent = false:suggestion
+csharp_style_var_elsewhere = false:suggestion
+csharp_style_expression_bodied_methods = when_possible:suggestion
+csharp_style_expression_bodied_constructors = when_possible:suggestion
+csharp_style_expression_bodied_properties = when_possible:suggestion
+
+# File header template left unset intentionally
+file_header_template = ""
