@@ -17,7 +17,8 @@ public class Chatbot
             UI.PrintDivider();
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write($"{userName} > ");
-            string input = Console.ReadLine()?.Trim().ToLower();
+            string? raw = Console.ReadLine();
+            string input = raw?.Trim().ToLower() ?? string.Empty;
 
             if (string.IsNullOrWhiteSpace(input))
             {
