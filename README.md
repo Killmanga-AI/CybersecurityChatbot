@@ -5,7 +5,7 @@ A C# console-based chatbot designed to educate South African citizens about cybe
 
 ## Features Implemented
 - Voice greeting – plays a recorded `.wav` message on startup  
-- ASCII art logo – “Orbitz” cybersecurity theme with coloured console output  
+- ASCII art logo – “Orbit” cybersecurity theme with coloured console output  
 - Personalised interaction – asks for the user’s name and uses it in responses  
 - Keyword responses – recognises: `password`, `phishing`, `safe browsing`, `how are you`, `purpose`, `help`  
 - Input validation – handles empty input and unknown queries with friendly fallback messages  
@@ -30,3 +30,47 @@ A C# console-based chatbot designed to educate South African citizens about cybe
 5. Type `exit` to quit.
 
 ### Example Interaction
+
+[?] Enter your name: Thabo
+
+[!] Welcome, Thabo!
+
+Type 'help' for topics or 'exit' to quit.
+
+
+---
+
+Thabo > password [TIP] Use long, unique passwords + a password manager.
+
+## Continuous Integration Status
+GitHub Actions automatically builds the project on every commit.  
+Latest build status: PASSED (check mark)
+
+![CI workflow](Screenshot_13-4-2026_13334_github.com.jpeg)
+
+## Repository Structure
+
+CyberSecurityChatbot/ ├── .github/workflows/ci.yml ├── AudioPlayer.cs ├── Chatbot.cs ├── CyberSecurityChatbot.csproj ├── Program.cs ├── UI.cs ├── greeting.wav └── README.md
+
+## Commit History (≥6 commits)
+| Commit | Description |
+|--------|-------------|
+| 1 | Initial commit: project structure and Program.cs |
+| 2 | Added UI class with Orbitz ASCII art and colour formatting |
+| 3 | Implemented voice greeting using SoundPlayer and WAV file |
+| 4 | Added chatbot response system with cybersecurity keywords |
+| 5 | Improved input validation and default response handling |
+| 6 | Added README and GitHub Actions CI workflow |
+
+## Video Presentation
+An unlisted YouTube video demonstrating the code structure, logic, and a live run of the chatbot is available here:  
+[Insert your YouTube link here]
+
+Note: The video uses my own voice (no AI voice) as required by the assessment.
+
+## Author & Assessment
+- Module: Programming POE – Part 1    
+- Date:13 April 2026
+
+## References
+Pieterse, H. 2021. The Cyber Threat Landscape in South Africa: A 10-Year Review. African Journal of Information and Communication, 28(28). doi:10.23962/10539/32213
