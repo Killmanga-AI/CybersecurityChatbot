@@ -1,11 +1,11 @@
-# Cybersecurity Awareness Chatbot � Part 1
+﻿# Cybersecurity Awareness Chatbot – Part 1
 
 ## Description
 Console-based chatbot that educates users about password safety, phishing, and safe browsing.
 
 ## Features
 - Voice greeting (WAV)
-- Orbitz ASCII logo
+- Orbit ASCII logo
 - Personalised interaction
 - Input validation
 - Modular code (multiple classes)
