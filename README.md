@@ -67,7 +67,7 @@ I recorded a screen demo: file name `Screen Recording 2026-04-13 173506.mp4`.
 
 ### Demo video  
 
-[Play the demo video](./media/screen-recording-2026-04-13-173506.mp4)
+[Play the demo video](https://canva.link/g2nwn7rauf0z923)
 
 ## Author & Assessment
 - Module: Programming POE – Part 1    
