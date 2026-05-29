@@ -8,12 +8,14 @@ namespace CybersecurityChatbotPart2
 {
     public partial class MainWindow : Window
     {
+        private ChatBotEngine _bot;
         private SoundPlayer? _greetingPlayer;
         public ObservableCollection<string> ChatMessages { get; set; } = new ObservableCollection<string>();
 
         public MainWindow()
         {
             InitializeComponent();
+            _bot = new ChatBotEngine();
             ChatHistoryBox.ItemsSource = ChatMessages;
 
             AsciiArtBlock.Text = @"
@@ -52,7 +54,9 @@ namespace CybersecurityChatbotPart2
 
             AddUserMessage(inputText);
             InputTextBox.Clear();
-            AddBotMessage("[Placeholder] I generated a response.");
+            
+            string response = _bot.GetResponse(inputText);
+            AddBotMessage(response);
         }
 
         private void AddUserMessage(string message)
