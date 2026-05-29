@@ -47,6 +47,12 @@ namespace CybersecurityChatbotPart2
             if (e.Key == Key.Enter) ProcessInput();
         }
 
+        private void ClearMemoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            _bot.ClearMemory();
+            AddBotMessage("I've cleared my memory. You can tell me your name or interests again.");
+        }
+
         private void ProcessInput()
         {
             string inputText = InputTextBox.Text.Trim();

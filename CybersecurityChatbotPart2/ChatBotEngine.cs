@@ -7,6 +7,8 @@ namespace CybersecurityChatbotPart2
     public class ChatBotEngine
     {
         private string? _lastTopic;
+        private string? _userName;
+        private string? _favoriteTopic;
         private readonly Random _random = new Random();
 
         // Dictionary
@@ -37,7 +39,23 @@ namespace CybersecurityChatbotPart2
         public string GetResponse(string rawInput)
         {
             string input = rawInput.Trim().ToLower();
+            if (TryExtractName(input, out string? name))
+            {
+                _userName = char.ToUpper(name[0]) + name.Substring(1);
+                return $"Nice to meet you, {_userName}! I'll remember your name.";
+            }
+            if (TryExtractFavoriteTopic(input, out string? topic))
+            {
+                _favoriteTopic = topic;
+                return $"Great! I'll remember you're interested in {_favoriteTopic}.";
+            }
+            // Base logic
+            string baseResponse = GenerateBaseResponse(input);
+            return PersonalizeResponse(baseResponse);
+        }
 
+        private string GenerateBaseResponse(string input)
+        {
             // Follow-up checking
             if (Regex.IsMatch(input, @"tell me more|another tip|explain more|more info|elaborate|continue|what else", RegexOptions.IgnoreCase))
             {
@@ -63,6 +81,39 @@ namespace CybersecurityChatbotPart2
             }
 
             return "I'm here to help with cybersecurity topics. Try asking about: phishing, passwords, malware, social engineering, or privacy.";
+        }
+
+        private bool TryExtractName(string input, out string? name)
+        {
+            name = null;
+            var match = Regex.Match(input, @"(?:my name is|call me|i am|i'm)\s+([a-z]+)", RegexOptions.IgnoreCase);
+            if (match.Success) name = match.Groups[1].Value.ToLower();
+            return match.Success;
+        }
+
+        private bool TryExtractFavoriteTopic(string input, out string? topic)
+        {
+            topic = null;
+            var match = Regex.Match(input, @"(?:interested in|i like|i want to learn about)\s+(phishing|passwords|malware|social engineering|privacy)", RegexOptions.IgnoreCase);
+            if (match.Success) topic = match.Groups[1].Value.ToLower();
+            return match.Success;
+        }
+
+        private string PersonalizeResponse(string response)
+        {
+            string final = response;
+            if (!string.IsNullOrEmpty(_userName) && !final.StartsWith(_userName))
+                final = $"{_userName}, {final}";
+            if (!string.IsNullOrEmpty(_favoriteTopic) && _lastTopic != _favoriteTopic)
+                final += $" As someone interested in {_favoriteTopic}, you might find this especially useful.";
+            return final;
+        }
+
+        public void ClearMemory()
+        {
+            _userName = null;
+            _favoriteTopic = null;
+            _lastTopic = null;
         }
 
         private string GetRandomTip(string topic)

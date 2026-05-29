@@ -34,9 +34,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="InputTextBox" Grid.Column="0" Margin="0,0,5,0" Padding="5" FontSize="14" VerticalContentAlignment="Center" KeyDown="InputTextBox_KeyDown" />
             <Button x:Name="SendButton" Grid.Column="1" Content="Send" Width="70" Background="#3498DB" Foreground="White" FontWeight="Bold" Margin="0,0,5,0" Click="SendButton_Click" />
+            <Button x:Name="ClearMemoryButton" Grid.Column="2" Content="Clear Memory" Background="#E67E22" Foreground="White" FontWeight="Bold" Padding="5" Click="ClearMemoryButton_Click"/>
         </Grid>
 
         <Border Grid.Row="4" Background="#EFEFEF" Padding="5">
