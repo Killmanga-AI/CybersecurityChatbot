@@ -6,10 +6,27 @@ namespace CybersecurityChatbotPart2
 {
     public class ChatBotEngine
     {
+        public delegate string SentimentAdjuster(string baseMessage, string sentiment);
+        public SentimentAdjuster? AdjustMessageForSentiment { get; set; }
+
         private string? _lastTopic;
         private string? _userName;
         private string? _favoriteTopic;
         private readonly Random _random = new Random();
+
+        public ChatBotEngine()
+        {
+            AdjustMessageForSentiment = (baseMessage, sentiment) =>
+            {
+                switch (sentiment.ToLower())
+                {
+                    case "worried": return $"It's completely normal to feel concerned about this. {baseMessage}";
+                    case "curious": return $"I'm glad you're interested in learning more! {baseMessage}";
+                    case "frustrated": return $"I understand this can be frustrating. Let me help: {baseMessage}";
+                    default: return baseMessage;
+                }
+            };
+        }
 
         // Dictionary
         private readonly Dictionary<string, string> _keywordResponses = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -49,9 +66,11 @@ namespace CybersecurityChatbotPart2
                 _favoriteTopic = topic;
                 return $"Great! I'll remember you're interested in {_favoriteTopic}.";
             }
-            // Base logic
+            // Detect sentiment and apply adjustment
+            string sentiment = DetectSentiment(input);
             string baseResponse = GenerateBaseResponse(input);
-            return PersonalizeResponse(baseResponse);
+            string adjusted = AdjustMessageForSentiment?.Invoke(baseResponse, sentiment) ?? baseResponse;
+            return PersonalizeResponse(adjusted);
         }
 
         private string GenerateBaseResponse(string input)
@@ -114,6 +133,14 @@ namespace CybersecurityChatbotPart2
             _userName = null;
             _favoriteTopic = null;
             _lastTopic = null;
+        }
+
+        private string DetectSentiment(string input)
+        {
+            if (Regex.IsMatch(input, @"worried|concerned|scared|anxious|nervous|fear|afraid", RegexOptions.IgnoreCase)) return "worried";
+            if (Regex.IsMatch(input, @"curious|wonder|learn|understand|interested|tell me about", RegexOptions.IgnoreCase)) return "curious";
+            if (Regex.IsMatch(input, @"frustrated|annoyed|confused|don't understand|what does that mean", RegexOptions.IgnoreCase)) return "frustrated";
+            return "neutral";
         }
 
         private string GetRandomTip(string topic)

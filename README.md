@@ -105,3 +105,117 @@ I recorded a screen demo: file name `Screen Recording 2026-04-13 173506.mp4`.
 
 ## References
 Pieterse, H. 2021. The Cyber Threat Landscape in South Africa: A 10-Year Review. African Journal of Information and Communication, 28(28). doi:10.23962/10539/32213
+
+---
+
+# Part 2 Updates – WPF Edition with Memory & Sentiment Detection (May 29, 2026)
+
+## New Features Added
+
+### Memory System
+- **User Name Recognition** – Stores user name via regex patterns: "my name is", "call me", "i am", "i'm"
+- **Favorite Topic Storage** – Learns interests: "interested in", "i like", "i want to learn about"
+- **Clear Memory Button** – GUI button to reset stored user information
+
+### Sentiment Detection with Delegate Pattern
+- **Sentiment Adjuster Delegate** – Extensible pattern for customizable response adjustment
+- **Emotional Recognition** – Detects user sentiment:
+  - **Worried** – Reassuring tone: "It's completely normal to feel concerned about this..."
+  - **Curious** – Encouraging tone: "I'm glad you're interested in learning more!..."
+  - **Frustrated** – Empathetic tone: "I understand this can be frustrating. Let me help:..."
+  - **Neutral** – Standard responses
+- **Regex-based Sentiment Patterns** – Keywords: worried, concerned, scared, anxious, curious, interested, frustrated, confused
+
+### GitHub Actions CI/CD
+- **Automated Builds** – GitHub Actions workflow triggers on push/pull request to `main` or `master`
+- **Workflow Configuration** – `.github/workflows/dotnet.yml`
+  - Sets up .NET 8.0.x
+  - Builds `CybersecurityChatbotPart2.csproj`
+  - Reports success/failure
+
+## Part 2 Technical Implementation
+
+### Updated `ChatBotEngine.cs`
+```csharp
+public delegate string SentimentAdjuster(string baseMessage, string sentiment);
+public SentimentAdjuster? AdjustMessageForSentiment { get; set; }
+
+public ChatBotEngine()
+{
+    AdjustMessageForSentiment = (baseMessage, sentiment) =>
+    {
+        switch (sentiment.ToLower())
+        {
+            case "worried": return $"It's completely normal to feel concerned about this. {baseMessage}";
+            case "curious": return $"I'm glad you're interested in learning more! {baseMessage}";
+            case "frustrated": return $"I understand this can be frustrating. Let me help: {baseMessage}";
+            default: return baseMessage;
+        }
+    };
+}
+
+private string DetectSentiment(string input)
+{
+    if (Regex.IsMatch(input, @"worried|concerned|scared|anxious|nervous|fear|afraid", RegexOptions.IgnoreCase)) return "worried";
+    if (Regex.IsMatch(input, @"curious|wonder|learn|understand|interested|tell me about", RegexOptions.IgnoreCase)) return "curious";
+    if (Regex.IsMatch(input, @"frustrated|annoyed|confused|don't understand|what does that mean", RegexOptions.IgnoreCase)) return "frustrated";
+    return "neutral";
+}
+```
+
+### Updated UI (`MainWindow.xaml`)
+Added third column with "Clear Memory" button:
+```xml
+<Grid.ColumnDefinitions>
+    <ColumnDefinition Width="*"/>
+    <ColumnDefinition Width="Auto"/>
+    <ColumnDefinition Width="Auto"/> <!-- New column -->
+</Grid.ColumnDefinitions>
+<Button x:Name="ClearMemoryButton" Grid.Column="2" Content="Clear Memory" Background="#E67E22" Foreground="White" FontWeight="Bold" Padding="5" Click="ClearMemoryButton_Click"/>
+```
+
+### GitHub Actions Workflow
+Created `.github/workflows/dotnet.yml` for automated CI builds on every commit.
+
+## Example Part 2 Interactions
+
+**User:** "My name is Alex and I'm interested in phishing"  
+**Bot:** "Nice to meet you, Alex! I'll remember your name."
+
+**User:** "Tell me about phishing" (curious sentiment detected)  
+**Bot:** "I'm glad you're interested in learning more! [ALERT] Don't click suspicious links. Verify the sender. As someone interested in phishing, you might find this especially useful."
+
+**User:** "I'm worried about malware" (worried sentiment detected)  
+**Bot:** "It's completely normal to feel concerned about this. Alex, [ALERT] Ensure your antivirus is updated and avoid untrusted downloads."
+
+## Part 2 Commit Plan (Completed)
+
+1. ✅ **feat**: Add ChatBotEngine with keyword recognition (Commit 4 – Original)
+2. ✅ **feat**: Add Memory (Name & Favorite Topic) with GUI Clear button
+3. ✅ **feat**: Add Sentiment Detection with Delegate Pattern
+4. ✅ **feat**: GitHub Actions CI workflow setup
+5. ✅ **docs**: Update README with Part 2 features and build instructions
+
+## Technologies Used (Part 2)
+- C# (.NET 8.0-9.0)
+- WPF (Windows Presentation Foundation)
+- Regex (System.Text.RegularExpressions)
+- GitHub Actions (CI/CD)
+- Git/GitHub
+
+## Build Instructions (Part 2)
+
+### From Visual Studio 2022
+1. Open `CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj`
+2. Press `Ctrl+F5` to run
+
+### From Command Line
+```powershell
+cd CybersecurityChatbot
+dotnet build CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj
+dotnet run --project CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj
+```
+
+## Continuous Integration Status (Part 2)
+GitHub Actions automatically builds the WPF project on every commit to `main` or `master`.  
+Check the Actions tab for build history and status.
