@@ -1,0 +1,45 @@
+﻿<Window x:Class="CybersecurityChatbotPart2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Orbit Security System" Height="600" Width="450"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- ASCII Art -->
+            <RowDefinition Height="Auto"/> <!-- Header -->
+            <RowDefinition Height="*"/>    <!-- Chat History -->
+            <RowDefinition Height="Auto"/> <!-- Input Panel -->
+            <RowDefinition Height="Auto"/> <!-- Status Bar -->
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#1E2A36" Padding="10">
+            <TextBlock x:Name="AsciiArtBlock" FontFamily="Consolas" Foreground="#4CAF50" HorizontalAlignment="Center" TextAlignment="Center"/>
+        </Border>
+
+        <Border Grid.Row="1" Background="#2C3E50" Padding="10">
+            <TextBlock Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Text="Orbit Security Chatbot"/>
+        </Border>
+
+        <ListBox x:Name="ChatHistoryBox" Grid.Row="2" Background="#F8F9F9" Margin="5"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" TextWrapping="Wrap" Margin="5" FontSize="14" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Row="3" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="InputTextBox" Grid.Column="0" Margin="0,0,5,0" Padding="5" FontSize="14" VerticalContentAlignment="Center" />
+            <Button x:Name="SendButton" Grid.Column="1" Content="Send" Width="70" Background="#3498DB" Foreground="White" FontWeight="Bold" Margin="0,0,5,0" />
+        </Grid>
+
+        <Border Grid.Row="4" Background="#EFEFEF" Padding="5">
+            <TextBlock Text="Try asking about: phishing, passwords, malware, social engineering, privacy" FontSize="12" Foreground="#666666" HorizontalAlignment="Center"/>
+        </Border>
+    </Grid>
+</Window>
