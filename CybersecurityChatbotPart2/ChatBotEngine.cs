@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace CybersecurityChatbotPart2
 {
@@ -8,15 +9,17 @@ namespace CybersecurityChatbotPart2
         private string? _lastTopic;
         private readonly Random _random = new Random();
 
+        // Dictionary
         private readonly Dictionary<string, string> _keywordResponses = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             { "phishing", "[ALERT] Don't click suspicious links. Verify the sender." },
             { "passwords", "[TIP] Use long, unique passwords + a password manager." },
             { "malware", "[ALERT] Ensure your antivirus is updated and avoid untrusted downloads." },
-            { "social engineering", "[INFO] Be cautious of people manipulating you into giving up confidential info." },
+            { "social engineering", "[INFO] Be cautious of people manipulating you." },
             { "privacy", "[TIP] Review app permissions regularly and limit sharing personal data." }
         };
 
+        // Tip Lists
         private readonly List<string> _phishingTips = new List<string>
         {
             "Verify the sender's email address by hovering over the display name.",
@@ -35,8 +38,8 @@ namespace CybersecurityChatbotPart2
         {
             string input = rawInput.Trim().ToLower();
 
-            // Follow-up logic
-            if (System.Text.RegularExpressions.Regex.IsMatch(input, @"tell me more|another tip|explain more|more info|elaborate|continue|what else", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+            // Follow-up checking
+            if (Regex.IsMatch(input, @"tell me more|another tip|explain more|more info|elaborate|continue|what else", RegexOptions.IgnoreCase))
             {
                 if (_lastTopic != null)
                 {
@@ -47,6 +50,7 @@ namespace CybersecurityChatbotPart2
                 return "What topic do you want more info about?";
             }
 
+            // Keyword checking
             foreach (var key in _keywordResponses.Keys)
             {
                 if (input.Contains(key))
