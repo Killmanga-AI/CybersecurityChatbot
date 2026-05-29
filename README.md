@@ -62,9 +62,66 @@ CyberSecurityChatbot/ ├── .github/workflows/ci.yml ├── AudioPlayer.c
 | 5 | Improved input validation and default response handling |
 | 6 | Added README and GitHub Actions CI workflow |
 
-## Planned Part 2 — WPF Migration and Commit Plan
+## Part 2 — WPF GUI Application
 
-This repository will be extended in Part 2 by migrating the console chatbot to a WPF GUI application and implementing richer bot features. The work will be organised into six logical commits, each with a clear purpose and meaningful message. The commits are:
+The console chatbot has been migrated to a Windows Presentation Foundation (WPF) GUI application with enhanced features.
+
+### How to Run Part 2
+
+#### Prerequisites
+- Windows OS
+- .NET 8.0 SDK or later
+- Visual Studio 2022 or VS Code with C# extension
+
+#### Steps
+1. Navigate to the `CybersecurityChatbotPart2` folder.
+2. Run the application using one of the following methods:
+
+**Using Terminal:**
+```bash
+cd CybersecurityChatbotPart2
+dotnet run
+```
+
+**Using Visual Studio:**
+- Open `CybersecurityChatbotPart2.csproj` in Visual Studio 2022
+- Press `Ctrl+F5` (Start Without Debugging) or `F5` (Debug)
+
+#### Using the Application
+- **Type messages** in the input box to chat with the Orbit Security assistant
+- **Click Send** or press **Enter** to submit your message
+- **Click Clear Memory** to reset the chatbot's memory of your previous interactions
+- **Ask about:** phishing, passwords, malware, social engineering, privacy
+- The bot provides helpful tips, alerts, and personalized responses based on your sentiment and conversation history
+
+#### Example Interaction
+
+```
+Bot: Hello! I am your Orbit Security assistant. How can I help you?
+
+You: Tell me about phishing
+Bot: [ALERT] Don't click suspicious links. Verify the sender.
+
+You: Tell me more
+Bot: Verify the sender's email address by hovering over the display name.
+
+You: I'm worried about this
+Bot: It's completely normal to feel concerned about this. [ALERT] Ensure your antivirus is updated and avoid untrusted downloads.
+```
+
+#### Features
+- **Real-time chat interface** with scrollable message history
+- **Sentiment detection** – adapts responses based on worried, curious, or frustrated tone
+- **Conversation memory** – remembers previous topics and provides follow-up tips
+- **User personalization** – remembers your name and favorite topics
+- **Cybersecurity topics:** phishing, passwords, malware, social engineering, privacy
+- **Clear, colored interface** with Orbit branding
+
+---
+
+## Part 2 Commit Plan
+
+The Part 2 work was organised as follows:
 
 1. **feat**: Initialize WPF project with ASCII art header and chat layout
    - Add WPF application files: `App.xaml`, `App.xaml.cs`, `MainWindow.xaml`, `MainWindow.xaml.cs`

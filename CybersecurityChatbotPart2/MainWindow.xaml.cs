@@ -1,8 +1,10 @@
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Media;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CybersecurityChatbotPart2
 {
@@ -28,8 +30,10 @@ namespace CybersecurityChatbotPart2
 
             try
             {
-                _greetingPlayer = new SoundPlayer("greeting.wav");
-                _greetingPlayer.Play();
+                string appDir = AppDomain.CurrentDomain.BaseDirectory;
+                string audioPath = System.IO.Path.Combine(appDir, "greeting.wav");
+                _greetingPlayer = new SoundPlayer(audioPath);
+                _greetingPlayer.PlaySync();
             }
             catch (Exception ex)
             {
@@ -79,11 +83,18 @@ namespace CybersecurityChatbotPart2
 
         private void ScrollToBottom()
         {
-            if (ChatHistoryBox.Items.Count > 0)
+            if (ChatHistoryBox.Items.Count > 0 && ChatHistoryBox.HasItems && VisualTreeHelper.GetChildrenCount(ChatHistoryBox) > 0)
             {
-                var border = System.Windows.Media.VisualTreeHelper.GetChild(ChatHistoryBox, 0) as System.Windows.Controls.Border;
-                var scrollViewer = border?.Child as System.Windows.Controls.ScrollViewer;
-                scrollViewer?.ScrollToBottom();
+                try
+                {
+                    var border = System.Windows.Media.VisualTreeHelper.GetChild(ChatHistoryBox, 0) as System.Windows.Controls.Border;
+                    var scrollViewer = border?.Child as System.Windows.Controls.ScrollViewer;
+                    scrollViewer?.ScrollToBottom();
+                }
+                catch
+                {
+                    // Visual tree not fully initialized yet, skip scrolling
+                }
             }
         }
     }
