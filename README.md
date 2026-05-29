@@ -62,6 +62,36 @@ CyberSecurityChatbot/ ├── .github/workflows/ci.yml ├── AudioPlayer.c
 | 5 | Improved input validation and default response handling |
 | 6 | Added README and GitHub Actions CI workflow |
 
+## Planned Part 2 — WPF Migration and Commit Plan
+
+This repository will be extended in Part 2 by migrating the console chatbot to a WPF GUI application and implementing richer bot features. The work will be organised into six logical commits, each with a clear purpose and meaningful message. The commits are:
+
+1. **feat**: Initialize WPF project with ASCII art header and chat layout
+   - Add WPF application files: `App.xaml`, `App.xaml.cs`, `MainWindow.xaml`, `MainWindow.xaml.cs`
+   - Update `CyberSecurityChatbot.csproj` to target WPF
+   - Include ASCII art header in the GUI and a basic chat layout (ListBox, TextBox, Send/Speak buttons)
+
+2. **feat**: Integrate speech synthesis — auto-speak greeting and Speak button
+   - Add `System.Speech` reference
+   - Use `SpeechSynthesizer` to speak the greeting on window load and to read the last bot message
+
+3. **feat**: Implement ChatbotEngine with keyword recognition and random responses
+   - Add `ChatbotEngine.cs` with dictionaries for keyword responses and random tips
+   - Provide `GetGreeting()` and `GetResponse()` methods
+
+4. **feat**: Add conversation flow — follow-up detection
+   - Track last topic and respond to "tell me more", "another tip", "explain" by returning topic-specific tips
+
+5. **feat**: Implement user memory and sentiment detection
+   - Remember user name and favourite topic
+   - Detect sentiment (worried/curious/frustrated) and adapt responses
+
+6. **refactor**: Optimise, add robust fallback, ready for Part 3
+   - Use safe collection accessors (`GetValueOrDefault`) and improve error handling
+   - Add Enter key send, optional auto-speak toggle, and XML comments
+
+Each commit will be small, self-contained, and build on the previous one to keep the history clear and reviewable.
+
 ## Video Presentation
 I recorded a screen demo: file name `Screen Recording 2026-04-13 173506.mp4`.
 
