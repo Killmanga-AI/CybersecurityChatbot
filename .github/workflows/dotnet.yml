@@ -13,5 +13,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.x
+    - name: Restore NuGet packages
+      run: dotnet restore CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj
     - name: Build
-      run: dotnet build CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj
+      run: dotnet build CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj --no-restore --configuration Release

@@ -56,7 +56,7 @@ namespace CybersecurityChatbotPart2
         public string GetResponse(string rawInput)
         {
             string input = rawInput.Trim().ToLower();
-            if (TryExtractName(input, out string? name))
+            if (TryExtractName(input, out string? name) && !string.IsNullOrEmpty(name))
             {
                 _userName = char.ToUpper(name[0]) + name.Substring(1);
                 return $"Nice to meet you, {_userName}! I'll remember your name.";
