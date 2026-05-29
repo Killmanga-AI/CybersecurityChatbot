@@ -83,18 +83,20 @@ cd CybersecurityChatbotPart2
 dotnet run
 ```
 
-**Using Visual Studio:**
-- Open `CybersecurityChatbotPart2.csproj` in Visual Studio 2022
-- Press `Ctrl+F5` (Start Without Debugging) or `F5` (Debug)
+Using Visual Studio:
 
-#### Using the Application
-- **Type messages** in the input box to chat with the Orbit Security assistant
-- **Click Send** or press **Enter** to submit your message
-- **Click Clear Memory** to reset the chatbot's memory of your previous interactions
-- **Ask about:** phishing, passwords, malware, social engineering, privacy
-- The bot provides helpful tips, alerts, and personalized responses based on your sentiment and conversation history
+· Open CybersecurityChatbotPart2.csproj in Visual Studio 2022
+· Press Ctrl+F5 (Start Without Debugging) or F5 (Debug)
 
-#### Example Interaction
+Using the Application
+
+· Type messages in the input box to chat with the Orbit Security assistant
+· Click Send or press Enter to submit your message
+· Click Clear Memory to reset the chatbot's memory of your previous interactions
+· Ask about: phishing, passwords, malware, social engineering, privacy
+· The bot provides helpful tips, alerts, and personalized responses based on your sentiment and conversation history
+
+Example Interaction
 
 ```
 Bot: Hello! I am your Orbit Security assistant. How can I help you?
@@ -109,90 +111,117 @@ You: I'm worried about this
 Bot: It's completely normal to feel concerned about this. [ALERT] Ensure your antivirus is updated and avoid untrusted downloads.
 ```
 
-#### Features
-- **Real-time chat interface** with scrollable message history
-- **Sentiment detection** – adapts responses based on worried, curious, or frustrated tone
-- **Conversation memory** – remembers previous topics and provides follow-up tips
-- **User personalization** – remembers your name and favorite topics
-- **Cybersecurity topics:** phishing, passwords, malware, social engineering, privacy
-- **Clear, colored interface** with Orbit branding
+Features
+
+· Real-time chat interface with scrollable message history
+· Sentiment detection – adapts responses based on worried, curious, or frustrated tone
+· Conversation memory – remembers previous topics and provides follow-up tips
+· User personalization – remembers your name and favorite topics
+· Cybersecurity topics: phishing, passwords, malware, social engineering, privacy
+· Clear, colored interface with Orbit branding
 
 ---
 
-## Part 2 Commit Plan
+Part 2 Commit Plan
 
 The Part 2 work was organised as follows:
 
-1. **feat**: Initialize WPF project with ASCII art header and chat layout
-   - Add WPF application files: `App.xaml`, `App.xaml.cs`, `MainWindow.xaml`, `MainWindow.xaml.cs`
-   - Update `CyberSecurityChatbot.csproj` to target WPF
-   - Include ASCII art header in the GUI and a basic chat layout (ListBox, TextBox, Send/Speak buttons)
-
-2. **feat**: Integrate speech synthesis — auto-speak greeting and Speak button
-   - Add `System.Speech` reference
-   - Use `SpeechSynthesizer` to speak the greeting on window load and to read the last bot message
-
-3. **feat**: Implement ChatbotEngine with keyword recognition and random responses
-   - Add `ChatbotEngine.cs` with dictionaries for keyword responses and random tips
-   - Provide `GetGreeting()` and `GetResponse()` methods
-
-4. **feat**: Add conversation flow — follow-up detection
-   - Track last topic and respond to "tell me more", "another tip", "explain" by returning topic-specific tips
-
-5. **feat**: Implement user memory and sentiment detection
-   - Remember user name and favourite topic
-   - Detect sentiment (worried/curious/frustrated) and adapt responses
-
-6. **refactor**: Optimise, add robust fallback, ready for Part 3
-   - Use safe collection accessors (`GetValueOrDefault`) and improve error handling
-   - Add Enter key send, optional auto-speak toggle, and XML comments
+1. feat: Initialize WPF project with ASCII art header and chat layout
+   · Add WPF application files: App.xaml, App.xaml.cs, MainWindow.xaml, MainWindow.xaml.cs
+   · Update CyberSecurityChatbot.csproj to target WPF
+   · Include ASCII art header in the GUI and a basic chat layout (ListBox, TextBox, Send/Speak buttons)
+2. feat: Integrate speech synthesis — auto-speak greeting and Speak button
+   · Add System.Speech reference
+   · Use SpeechSynthesizer to speak the greeting on window load and to read the last bot message
+3. feat: Implement ChatbotEngine with keyword recognition and random responses
+   · Add ChatbotEngine.cs with dictionaries for keyword responses and random tips
+   · Provide GetGreeting() and GetResponse() methods
+4. feat: Add conversation flow — follow-up detection
+   · Track last topic and respond to "tell me more", "another tip", "explain" by returning topic-specific tips
+5. feat: Implement user memory and sentiment detection
+   · Remember user name and favourite topic
+   · Detect sentiment (worried/curious/frustrated) and adapt responses
+6. refactor: Optimise, add robust fallback, ready for Part 3
+   · Use safe collection accessors (GetValueOrDefault) and improve error handling
+   · Add Enter key send, optional auto-speak toggle, and XML comments
 
 Each commit will be small, self-contained, and build on the previous one to keep the history clear and reviewable.
 
-## Video Presentation
-I recorded a screen demo: file name `Screen Recording 2026-04-13 173506.mp4`.
+Video Presentation
 
-### Demo video  
+[![Watch the demo on YouTube](https://img.shields.io/badge/Watch-Demo%20Video-red?style=for-the-badge&logo=youtube)](https://youtu.be/Or_xgBZe9DU?si=t-IPG4x4wpLFGS7n)
 
-[Play the demo video](https://canva.link/g2nwn7rauf0z923)
+Author & Assessment
 
-## Author & Assessment
-- Module: Programming POE – Part 1    
-- Date: 13 April 2026
+· Module: Programming POE – Part 1
+· Date: 13 April 2026
 
-## References
-Pieterse, H. 2021. The Cyber Threat Landscape in South Africa: A 10-Year Review. African Journal of Information and Communication, 28(28). doi:10.23962/10539/32213
+References
+
+Academic source (provided in assignment)
+
+Pieterse, H. (2021) 'The Cyber Threat Landscape in South Africa: A 10-Year Review', The African Journal of Information and Communication, 28(28). doi:10.23962/10539/32213. (Accessed: 29 May 2026).
+
+Online learning platforms and documentation
+
+W3Schools (2026) 'C# Tutorial', W3Schools. Available at: https://www.w3schools.com/cs/ (Accessed: 29 May 2026).
+
+Microsoft (2024) 'WPF (Windows Presentation Foundation) documentation', Microsoft Learn. Available at: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/ (Accessed: 29 May 2026).
+
+Microsoft (2024) 'Regular Expressions in .NET', Microsoft Learn. Available at: https://learn.microsoft.com/en-us/dotnet/standard/base-types/regular-expressions (Accessed: 29 May 2026).
+
+Microsoft (2024) 'Delegates (C# Programming Guide)', Microsoft Learn. Available at: https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/delegates/ (Accessed: 29 May 2026).
+
+Stack Overflow (2024) 'How to play a WAV file in a WPF application', Stack Overflow. Available at: https://stackoverflow.com/questions/1044385/how-to-play-wav-file-in-wpf (Accessed: 29 May 2026).
+
+YouTube tutorials (used for understanding difficult concepts)
+
+IAmTimCorey (2021) 'C# WPF Tutorial - Getting Started', YouTube. Available at: https://www.youtube.com/watch?v=Vjldip84XQ0 (Accessed: 29 May 2026).
+
+Programming with Mosh (2020) 'C# Delegates Explained', YouTube. Available at: https://www.youtube.com/watch?v=3ZfwqWl-YI4 (Accessed: 29 May 2026).
+
+kudvenkat (2018) 'Regular Expressions in C#', YouTube. Available at: https://www.youtube.com/watch?v=YXk7UeD9lWU (Accessed: 29 May 2026).
+
+Nick Chapsas (2022) 'GitHub Actions for .NET Developers', YouTube. Available at: https://www.youtube.com/watch?v=4n6c3u7WqR4 (Accessed: 29 May 2026).
+
+Additional references for sentiment analysis and chatbot design
+
+GeeksforGeeks (2024) 'Sentiment Analysis using Regular Expressions in C#', GeeksforGeeks. Available at: https://www.geeksforgeeks.org/sentiment-analysis-using-regular-expressions-in-c-sharp/ (Accessed: 29 May 2026).
 
 ---
 
-# Part 2 Updates – WPF Edition with Memory & Sentiment Detection (May 29, 2026)
+Part 2 Updates – WPF Edition with Memory & Sentiment Detection (May 29, 2026)
 
-## New Features Added
+New Features Added
 
-### Memory System
-- **User Name Recognition** – Stores user name via regex patterns: "my name is", "call me", "i am", "i'm"
-- **Favorite Topic Storage** – Learns interests: "interested in", "i like", "i want to learn about"
-- **Clear Memory Button** – GUI button to reset stored user information
+Memory System
 
-### Sentiment Detection with Delegate Pattern
-- **Sentiment Adjuster Delegate** – Extensible pattern for customizable response adjustment
-- **Emotional Recognition** – Detects user sentiment:
-  - **Worried** – Reassuring tone: "It's completely normal to feel concerned about this..."
-  - **Curious** – Encouraging tone: "I'm glad you're interested in learning more!..."
-  - **Frustrated** – Empathetic tone: "I understand this can be frustrating. Let me help:..."
-  - **Neutral** – Standard responses
-- **Regex-based Sentiment Patterns** – Keywords: worried, concerned, scared, anxious, curious, interested, frustrated, confused
+· User Name Recognition – Stores user name via regex patterns: "my name is", "call me", "i am", "i'm"
+· Favorite Topic Storage – Learns interests: "interested in", "i like", "i want to learn about"
+· Clear Memory Button – GUI button to reset stored user information
 
-### GitHub Actions CI/CD
-- **Automated Builds** – GitHub Actions workflow triggers on push/pull request to `main` or `master`
-- **Workflow Configuration** – `.github/workflows/dotnet.yml`
-  - Sets up .NET 8.0.x
-  - Builds `CybersecurityChatbotPart2.csproj`
-  - Reports success/failure
+Sentiment Detection with Delegate Pattern
 
-## Part 2 Technical Implementation
+· Sentiment Adjuster Delegate – Extensible pattern for customizable response adjustment
+· Emotional Recognition – Detects user sentiment:
+  · Worried – Reassuring tone: "It's completely normal to feel concerned about this..."
+  · Curious – Encouraging tone: "I'm glad you're interested in learning more!..."
+  · Frustrated – Empathetic tone: "I understand this can be frustrating. Let me help:..."
+  · Neutral – Standard responses
+· Regex-based Sentiment Patterns – Keywords: worried, concerned, scared, anxious, curious, interested, frustrated, confused
 
-### Updated `ChatBotEngine.cs`
+GitHub Actions CI/CD
+
+· Automated Builds – GitHub Actions workflow triggers on push/pull request to main or master
+· Workflow Configuration – .github/workflows/dotnet.yml
+  · Sets up .NET 8.0.x
+  · Builds CybersecurityChatbotPart2.csproj
+  · Reports success/failure
+
+Part 2 Technical Implementation
+
+Updated ChatBotEngine.cs
+
 ```csharp
 public delegate string SentimentAdjuster(string baseMessage, string sentiment);
 public SentimentAdjuster? AdjustMessageForSentiment { get; set; }
@@ -220,8 +249,10 @@ private string DetectSentiment(string input)
 }
 ```
 
-### Updated UI (`MainWindow.xaml`)
+Updated UI (MainWindow.xaml)
+
 Added third column with "Clear Memory" button:
+
 ```xml
 <Grid.ColumnDefinitions>
     <ColumnDefinition Width="*"/>
@@ -231,48 +262,55 @@ Added third column with "Clear Memory" button:
 <Button x:Name="ClearMemoryButton" Grid.Column="2" Content="Clear Memory" Background="#E67E22" Foreground="White" FontWeight="Bold" Padding="5" Click="ClearMemoryButton_Click"/>
 ```
 
-### GitHub Actions Workflow
-Created `.github/workflows/dotnet.yml` for automated CI builds on every commit.
+GitHub Actions Workflow
 
-## Example Part 2 Interactions
+Created .github/workflows/dotnet.yml for automated CI builds on every commit.
 
-**User:** "My name is Alex and I'm interested in phishing"  
-**Bot:** "Nice to meet you, Alex! I'll remember your name."
+Example Part 2 Interactions
 
-**User:** "Tell me about phishing" (curious sentiment detected)  
-**Bot:** "I'm glad you're interested in learning more! [ALERT] Don't click suspicious links. Verify the sender. As someone interested in phishing, you might find this especially useful."
+User: "My name is Alex and I'm interested in phishing"
+Bot: "Nice to meet you, Alex! I'll remember your name."
 
-**User:** "I'm worried about malware" (worried sentiment detected)  
-**Bot:** "It's completely normal to feel concerned about this. Alex, [ALERT] Ensure your antivirus is updated and avoid untrusted downloads."
+User: "Tell me about phishing" (curious sentiment detected)
+Bot: "I'm glad you're interested in learning more! [ALERT] Don't click suspicious links. Verify the sender. As someone interested in phishing, you might find this especially useful."
 
-## Part 2 Commit Plan (Completed)
+User: "I'm worried about malware" (worried sentiment detected)
+Bot: "It's completely normal to feel concerned about this. Alex, [ALERT] Ensure your antivirus is updated and avoid untrusted downloads."
 
-1. ✅ **feat**: Add ChatBotEngine with keyword recognition (Commit 4 – Original)
-2. ✅ **feat**: Add Memory (Name & Favorite Topic) with GUI Clear button
-3. ✅ **feat**: Add Sentiment Detection with Delegate Pattern
-4. ✅ **feat**: GitHub Actions CI workflow setup
-5. ✅ **docs**: Update README with Part 2 features and build instructions
+Part 2 Commit Plan (Completed)
 
-## Technologies Used (Part 2)
-- C# (.NET 8.0-9.0)
-- WPF (Windows Presentation Foundation)
-- Regex (System.Text.RegularExpressions)
-- GitHub Actions (CI/CD)
-- Git/GitHub
+1.  feat: Add ChatBotEngine with keyword recognition (Commit 4 – Original)
+2.  feat: Add Memory (Name & Favorite Topic) with GUI Clear button
+3.  feat: Add Sentiment Detection with Delegate Pattern
+4.  feat: GitHub Actions CI workflow setup
+5.  docs: Update README with Part 2 features and build instructions
 
-## Build Instructions (Part 2)
+Technologies Used (Part 2)
 
-### From Visual Studio 2022
-1. Open `CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj`
-2. Press `Ctrl+F5` to run
+· C# (.NET 8.0-9.0)
+· WPF (Windows Presentation Foundation)
+· Regex (System.Text.RegularExpressions)
+· GitHub Actions (CI/CD)
+· Git/GitHub
 
-### From Command Line
+Build Instructions (Part 2)
+
+From Visual Studio 2022
+
+1. Open CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj
+2. Press Ctrl+F5 to run
+
+From Command Line
+
 ```powershell
 cd CybersecurityChatbot
 dotnet build CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj
 dotnet run --project CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj
 ```
 
-## Continuous Integration Status (Part 2)
-GitHub Actions automatically builds the WPF project on every commit to `main` or `master`.  
+Continuous Integration Status (Part 2)
+
+GitHub Actions automatically builds the WPF project on every commit to main or master.
 Check the Actions tab for build history and status.
+
+```
