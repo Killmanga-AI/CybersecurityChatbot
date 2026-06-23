@@ -51,6 +51,12 @@ namespace CybersecurityChatbotPart2
             var taskWin = new TaskWindow(_bot.GetTaskManager());
             taskWin.ShowDialog();
         }
+
+        private void BtnQuiz_Click(object sender, RoutedEventArgs e)
+        {
+            var quizWin = new QuizWindow(_bot.GetQuizManager());
+            quizWin.ShowDialog();
+        }
         private void InputTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) ProcessInput();

@@ -14,6 +14,7 @@ namespace CybersecurityChatbotPart2
         private string? _favoriteTopic;
         private readonly Random _random = new Random();
         private readonly TaskManager _taskManager;
+        private readonly QuizManager _quizManager;
 
         public ChatBotEngine()
         {
@@ -29,6 +30,7 @@ namespace CybersecurityChatbotPart2
             };
             string connStr = "server=localhost;user=root;password=yourpassword;database=cybersecurity_chatbot";
             _taskManager = new TaskManager(connStr);
+            _quizManager = new QuizManager();
         }
 
         // Dictionary
@@ -139,6 +141,7 @@ namespace CybersecurityChatbotPart2
         }
 
         public TaskManager GetTaskManager() => _taskManager;
+        public QuizManager GetQuizManager() => _quizManager;
 
         private string DetectSentiment(string input)
         {
