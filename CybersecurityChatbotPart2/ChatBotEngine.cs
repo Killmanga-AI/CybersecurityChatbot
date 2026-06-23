@@ -13,6 +13,7 @@ namespace CybersecurityChatbotPart2
         private string? _userName;
         private string? _favoriteTopic;
         private readonly Random _random = new Random();
+        private readonly TaskManager _taskManager;
 
         public ChatBotEngine()
         {
@@ -26,6 +27,8 @@ namespace CybersecurityChatbotPart2
                     default: return baseMessage;
                 }
             };
+            string connStr = "server=localhost;user=root;password=yourpassword;database=cybersecurity_chatbot";
+            _taskManager = new TaskManager(connStr);
         }
 
         // Dictionary
