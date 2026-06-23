@@ -21,7 +21,7 @@ namespace CybersecurityChatbotPart2
                 ReminderDate = reminder
             };
             _db.AddTask(task);
-            // ActivityLogger.Log($"Task added: '{title}'" + (reminder.HasValue ? $" (Reminder set for {reminder.Value.ToShortDateString()})" : ""));
+            ActivityLogger.Log($"Task added: '{title}'" + (reminder.HasValue ? $" (Reminder set for {reminder.Value.ToShortDateString()})" : ""));
         }
 
         public List<Task> GetTasks() => _db.GetTasks(false);
@@ -29,13 +29,13 @@ namespace CybersecurityChatbotPart2
         public void DeleteTask(int id)
         {
             _db.DeleteTask(id);
-            // ActivityLogger.Log($"Task deleted (ID: {id})");
+            ActivityLogger.Log($"Task deleted (ID: {id})");
         }
 
         public void CompleteTask(int id)
         {
             _db.CompleteTask(id);
-            // ActivityLogger.Log($"Task marked as completed (ID: {id})");
+            ActivityLogger.Log($"Task marked as completed (ID: {id})");
         }
     }
 }

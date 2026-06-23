@@ -46,6 +46,11 @@ namespace CybersecurityChatbotPart2
 
         private void SendButton_Click(object sender, RoutedEventArgs e) => ProcessInput();
         
+        private void BtnTasks_Click(object sender, RoutedEventArgs e)
+        {
+            var taskWin = new TaskWindow(_bot.GetTaskManager());
+            taskWin.ShowDialog();
+        }
         private void InputTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) ProcessInput();

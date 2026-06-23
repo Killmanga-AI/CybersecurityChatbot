@@ -1,0 +1,24 @@
+<Window x:Class="CybersecurityChatbotPart2.TaskWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Task Manager" Height="450" Width="600">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBox x:Name="TxtTitle" Width="150" ToolTip="Task title"/>
+            <TextBox x:Name="TxtDesc" Width="200" Margin="5,0" ToolTip="Description (optional)"/>
+            <DatePicker x:Name="DpReminder" Margin="5,0" ToolTip="Reminder date"/>
+            <Button x:Name="BtnAdd" Content="Add Task" Click="BtnAdd_Click"/>
+        </StackPanel>
+        <ListBox x:Name="LstTasks" Grid.Row="1" DisplayMemberPath="Title" SelectionChanged="LstTasks_SelectionChanged"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+            <Button x:Name="BtnComplete" Content="Complete" Click="BtnComplete_Click"/>
+            <Button x:Name="BtnDelete" Content="Delete" Margin="5,0" Click="BtnDelete_Click"/>
+            <Button x:Name="BtnRefresh" Content="Refresh" Click="BtnRefresh_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

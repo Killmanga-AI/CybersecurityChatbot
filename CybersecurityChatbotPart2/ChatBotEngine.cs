@@ -138,6 +138,8 @@ namespace CybersecurityChatbotPart2
             _lastTopic = null;
         }
 
+        public TaskManager GetTaskManager() => _taskManager;
+
         private string DetectSentiment(string input)
         {
             if (Regex.IsMatch(input, @"worried|concerned|scared|anxious|nervous|fear|afraid", RegexOptions.IgnoreCase)) return "worried";
