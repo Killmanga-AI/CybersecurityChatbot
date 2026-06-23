@@ -9,6 +9,10 @@ namespace CybersecurityChatbotPart2
         public delegate string SentimentAdjuster(string baseMessage, string sentiment);
         public SentimentAdjuster? AdjustMessageForSentiment { get; set; }
 
+        private bool _awaitingTaskReminder = false;
+        private string _pendingTaskTitle = "";
+        private bool _quizWaitingForAnswer = false;
+
         private string? _lastTopic;
         private string? _userName;
         private string? _favoriteTopic;
@@ -60,6 +64,104 @@ namespace CybersecurityChatbotPart2
 
         public string GetResponse(string rawInput)
         {
+            // NLP intent detection (high priority)
+            NLPHelper.Intent intent = NLPHelper.DetectIntent(rawInput);
+            switch (intent)
+            {
+                case NLPHelper.Intent.AddTask:
+                    string title = NLPHelper.ExtractTaskDetails(rawInput);
+                    if (string.IsNullOrEmpty(title))
+                        return "What task would you like to add? Please describe it.";
+
+                    DateTime? reminder = NLPHelper.ExtractReminderDate(rawInput);
+                    _taskManager.AddTask(title, reminder: reminder);
+                    string response = $"Task added: '{title}'.";
+                    if (reminder.HasValue)
+                        response += $" Reminder set for {reminder.Value.ToShortDateString()}.";
+                    else
+                        response += " You can set a reminder later from the Task Manager.";
+                    ActivityLogger.Log($"NLP: Task added via command.");
+                    return response;
+
+                case NLPHelper.Intent.ShowTasks:
+                    var tasks = _taskManager.GetTasks();
+                    if (tasks.Count == 0)
+                        return "You have no pending tasks. Great job!";
+                    string taskList = "Your pending tasks:\n";
+                    foreach (var t in tasks)
+                        taskList += $"- {t.Title}" + (t.ReminderDate.HasValue ? $" (Reminder: {t.ReminderDate.Value.ToShortDateString()})" : "") + "\n";
+                    return taskList;
+
+                case NLPHelper.Intent.StartQuiz:
+                    _quizManager.StartQuiz();
+                    _quizWaitingForAnswer = true;
+                    var q = _quizManager.GetCurrentQuestion();
+                    if (q != null)
+                    {
+                        string options = "";
+                        for (int i = 0; i < q.Options.Count; i++)
+                            options += $"{i + 1}. {q.Options[i]}\n";
+                        return $"Quiz started!\n\n{q.Text}\n\n{options}\nType the number of your answer (1-{q.Options.Count}).";
+                    }
+                    return "Quiz started! Answer the questions.";
+
+                case NLPHelper.Intent.ShowLog:
+                    var log = ActivityLogger.GetLog(10);
+                    if (log.Count == 0)
+                        return "No recent activities recorded.";
+                    string logText = "Recent activity log:\n";
+                    foreach (var entry in log)
+                        logText += $"- {entry}\n";
+                    return logText;
+
+                case NLPHelper.Intent.Help:
+                    return "I can help you with:\n- Cybersecurity topics (phishing, passwords, malware, social engineering, privacy)\n- Task management (add task, show tasks)\n- Quiz (start quiz)\n- Activity log (show activity log)\n\nJust type your request naturally!";
+
+                default:
+                    // Check if quiz is active and user is answering
+                    if (_quizWaitingForAnswer && _quizManager.IsActive)
+                    {
+                        if (int.TryParse(rawInput, out int choice) && choice >= 1 && choice <= 4)
+                        {
+                            bool correct = _quizManager.AnswerCurrent(choice - 1);
+                            var currentQ = _quizManager.GetCurrentQuestion();
+                            string feedback = correct ? "Correct! " : "Incorrect. ";
+                            feedback += currentQ?.Explanation ?? "";
+
+                            if (_quizManager.IsFinished)
+                            {
+                                _quizWaitingForAnswer = false;
+                                feedback += $"\n\nQuiz finished! Your score: {_quizManager.GetScore()}/{_quizManager.GetTotalQuestions()}\n{_quizManager.GetFeedback()}";
+                                ActivityLogger.Log($"Quiz completed with score {_quizManager.GetScore()}/{_quizManager.GetTotalQuestions()}");
+                                return feedback;
+                            }
+
+                            // Show next question
+                            if (currentQ != null)
+                            {
+                                string options = "";
+                                for (int i = 0; i < currentQ.Options.Count; i++)
+                                    options += $"{i + 1}. {currentQ.Options[i]}\n";
+                                return feedback + $"\n\nNext question:\n\n{currentQ.Text}\n\n{options}\nType the number of your answer (1-{currentQ.Options.Count}).";
+                            }
+                            return feedback;
+                        }
+                        else
+                        {
+                            return "Please enter the number corresponding to your answer (1, 2, 3, or 4).";
+                        }
+                    }
+
+                    // If user says "complete task" or "delete task" but didn't provide ID
+                    if (intent == NLPHelper.Intent.CompleteTask || intent == NLPHelper.Intent.DeleteTask)
+                    {
+                        return $"Please provide the task ID you want to {(intent == NLPHelper.Intent.CompleteTask ? "complete" : "delete")}. Use 'show tasks' to see IDs.";
+                    }
+
+                    // Fall through to existing keyword recognition
+                    break;
+            }
+
             string input = rawInput.Trim().ToLower();
             if (TryExtractName(input, out string? name) && !string.IsNullOrEmpty(name))
             {
