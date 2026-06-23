@@ -152,10 +152,29 @@ namespace CybersecurityChatbotPart2
                         }
                     }
 
-                    // If user says "complete task" or "delete task" but didn't provide ID
-                    if (intent == NLPHelper.Intent.CompleteTask || intent == NLPHelper.Intent.DeleteTask)
+                    // Handle task completion/deletion with ID
+                    if (intent == NLPHelper.Intent.CompleteTask)
                     {
-                        return $"Please provide the task ID you want to {(intent == NLPHelper.Intent.CompleteTask ? "complete" : "delete")}. Use 'show tasks' to see IDs.";
+                        var match = Regex.Match(rawInput, @"\b(\d+)\b");
+                        if (match.Success && int.TryParse(match.Groups[1].Value, out int id))
+                        {
+                            _taskManager.CompleteTask(id);
+                            ActivityLogger.Log($"Task {id} completed via chat");
+                            return $"Task {id} marked as completed!";
+                        }
+                        return "Please provide the task ID. Example: 'complete task 3'";
+                    }
+
+                    if (intent == NLPHelper.Intent.DeleteTask)
+                    {
+                        var match = Regex.Match(rawInput, @"\b(\d+)\b");
+                        if (match.Success && int.TryParse(match.Groups[1].Value, out int id))
+                        {
+                            _taskManager.DeleteTask(id);
+                            ActivityLogger.Log($"Task {id} deleted via chat");
+                            return $"Task {id} deleted!";
+                        }
+                        return "Please provide the task ID. Example: 'delete task 3'";
                     }
 
                     // Fall through to existing keyword recognition
@@ -235,6 +254,9 @@ namespace CybersecurityChatbotPart2
             return final;
         }
 
+        /// <summary>
+        /// Clears the user name and favorite topic from memory.
+        /// </summary>
         public void ClearMemory()
         {
             _userName = null;
@@ -244,6 +266,8 @@ namespace CybersecurityChatbotPart2
 
         public TaskManager GetTaskManager() => _taskManager;
         public QuizManager GetQuizManager() => _quizManager;
+        public TaskManager TaskManager => _taskManager;
+        public QuizManager QuizManager => _quizManager;
 
         private string DetectSentiment(string input)
         {

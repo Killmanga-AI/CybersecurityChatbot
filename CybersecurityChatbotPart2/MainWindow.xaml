@@ -26,20 +26,18 @@
         </ListBox>
 
         <Grid Grid.Row="3" Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBox x:Name="InputTextBox" Grid.Column="0" Margin="0,0,5,0" Padding="5" FontSize="14" VerticalContentAlignment="Center" KeyDown="InputTextBox_KeyDown" />
-            <Button x:Name="SendButton" Grid.Column="1" Content="Send" Width="70" Background="#3498DB" Foreground="White" FontWeight="Bold" Margin="0,0,5,0" Click="SendButton_Click" />
-            <Button x:Name="BtnTasks" Grid.Column="2" Content="Tasks" Width="80" Height="40" Margin="5,0" Background="#2ECC71" Foreground="White" FontWeight="Bold" Click="BtnTasks_Click"/>
-            <Button x:Name="BtnQuiz" Grid.Column="3" Content="Quiz" Width="80" Height="40" Margin="5,0" Background="#F39C12" Foreground="White" FontWeight="Bold" Click="BtnQuiz_Click"/>
-            <Button x:Name="BtnLog" Grid.Column="4" Content="Log" Width="80" Height="40" Margin="5,0" Background="#9B59B6" Foreground="White" FontWeight="Bold" Click="BtnLog_Click"/>
-            <Button x:Name="ClearMemoryButton" Grid.Column="5" Content="Clear Memory" Background="#E67E22" Foreground="White" FontWeight="Bold" Padding="5" Click="ClearMemoryButton_Click"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="InputTextBox" Grid.Row="0" Margin="0,0,0,5" Padding="5" FontSize="14" VerticalContentAlignment="Center" KeyDown="InputTextBox_KeyDown" Height="40"/>
+            <UniformGrid Columns="5" Grid.Row="1" Margin="0,0,0,10">
+                <Button x:Name="BtnSend" Content="Send" Background="#3498DB" Foreground="White" FontWeight="Bold" Click="SendButton_Click" Height="40"/>
+                <Button x:Name="BtnTasks" Content="Tasks" Margin="5,0" Background="#2ECC71" Foreground="White" FontWeight="Bold" Click="BtnTasks_Click" Height="40"/>
+                <Button x:Name="BtnQuiz" Content="Quiz" Margin="5,0" Background="#F39C12" Foreground="White" FontWeight="Bold" Click="BtnQuiz_Click" Height="40"/>
+                <Button x:Name="BtnLog" Content="Log" Margin="5,0" Background="#9B59B6" Foreground="White" FontWeight="Bold" Click="BtnLog_Click" Height="40"/>
+                <Button x:Name="BtnClearMemory" Content="Clear Memory" Margin="5,0,0,0" Background="#E67E22" Foreground="White" FontWeight="Bold" Click="ClearMemoryButton_Click" Height="40"/>
+            </UniformGrid>
         </Grid>
 
         <Border Grid.Row="4" Background="#EFEFEF" Padding="5">
