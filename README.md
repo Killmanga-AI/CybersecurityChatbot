@@ -1,4 +1,4 @@
-﻿# Cybersecurity Awareness Chatbot – Part 1
+# Cybersecurity Awareness Chatbot – Part 1
 
 ## Project Overview
 A C# console-based chatbot designed to educate South African citizens about cybersecurity threats such as phishing, weak passwords, and unsafe browsing. This is Part 1 of a three-part Portfolio of Evidence (POE) for a programming module.
@@ -276,3 +276,56 @@ dotnet run --project CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj
 ## Continuous Integration Status (Part 2)
 GitHub Actions automatically builds the WPF project on every commit to `main` or `master`.  
 Check the Actions tab for build history and status.
+
+## Part 3 – Advanced Features (June 2026)
+
+### New Features
+
+#### Task Assistant with Database
+- Add, view, complete, and delete cybersecurity tasks
+- Tasks stored in MySQL database
+- Set optional reminder dates
+- Manage tasks via chat or the Task Manager window
+
+#### Cybersecurity Quiz
+- 11 questions covering phishing, passwords, malware, social engineering, safe browsing
+- Multiple-choice and true/false questions
+- Immediate feedback with explanations
+- Score tracking and final feedback
+
+#### Natural Language Processing (NLP) Simulation
+- Recognises commands like "add task", "show tasks", "start quiz", "show log"
+- Extracts task details and reminder dates from natural language
+- Handles variations like "remind me to update my password tomorrow"
+
+#### Activity Log
+- Tracks all significant actions (tasks, quiz, NLP commands)
+- View last 10-20 entries
+- Access via chat command or Log button
+
+### Database Setup
+
+1. Create MySQL database:
+```sql
+CREATE DATABASE cybersecurity_chatbot;
+USE cybersecurity_chatbot;
+
+CREATE TABLE tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    reminder_date DATETIME,
+    is_completed BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+2. Update connection string in `ChatBotEngine.cs`:
+
+```csharp
+string connStr = "server=localhost;user=root;password=yourpassword;database=cybersecurity_chatbot";
+```
+
+### Video Demonstration
+
+[![Watch Presentation](https://img.shields.io/badge/Watch-Presentation-red?style=for-the-badge&logo=youtube)](#)
