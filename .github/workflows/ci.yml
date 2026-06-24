@@ -1,4 +1,4 @@
-﻿name: .NET Build
+name: .NET Build
 
 on:
   push:
@@ -12,8 +12,8 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '8.0.x'
     - name: Restore
-      run: dotnet restore
+      run: dotnet restore CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj
     - name: Build
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build CybersecurityChatbotPart2/CybersecurityChatbotPart2.csproj --no-restore --configuration Release
