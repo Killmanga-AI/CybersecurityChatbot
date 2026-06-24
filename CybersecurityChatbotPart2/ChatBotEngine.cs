@@ -9,8 +9,6 @@ namespace CybersecurityChatbotPart2
         public delegate string SentimentAdjuster(string baseMessage, string sentiment);
         public SentimentAdjuster? AdjustMessageForSentiment { get; set; }
 
-        private bool _awaitingTaskReminder = false;
-        private string _pendingTaskTitle = "";
         private bool _quizWaitingForAnswer = false;
 
         private string? _lastTopic;
