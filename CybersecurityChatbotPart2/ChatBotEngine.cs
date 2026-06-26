@@ -30,7 +30,7 @@ namespace CybersecurityChatbotPart2
                     default: return baseMessage;
                 }
             };
-            string connStr = "server=localhost;user=root;password=yourpassword;database=cybersecurity_chatbot";
+            string connStr = "server=localhost;user=root;password=sudoapt;database=cybersecurity_chatbot";
             _taskManager = new TaskManager(connStr);
             _quizManager = new QuizManager();
         }
@@ -62,6 +62,15 @@ namespace CybersecurityChatbotPart2
 
         public string GetResponse(string rawInput)
         {
+            // Handle exit/quit before NLP (closes the application)
+            if (System.Text.RegularExpressions.Regex.IsMatch(rawInput.Trim(), @"^(exit|quit|bye|goodbye)$", RegexOptions.IgnoreCase))
+            {
+                ActivityLogger.Log("User exited the chatbot.");
+                System.Windows.Application.Current.Dispatcher.InvokeAsync(() =>
+                    System.Windows.Application.Current.Shutdown());
+                return "Goodbye! Stay safe online. 🛡️";
+            }
+
             // NLP intent detection (high priority)
             NLPHelper.Intent intent = NLPHelper.DetectIntent(rawInput);
             switch (intent)
@@ -87,8 +96,33 @@ namespace CybersecurityChatbotPart2
                         return "You have no pending tasks. Great job!";
                     string taskList = "Your pending tasks:\n";
                     foreach (var t in tasks)
-                        taskList += $"- {t.Title}" + (t.ReminderDate.HasValue ? $" (Reminder: {t.ReminderDate.Value.ToShortDateString()})" : "") + "\n";
+                        taskList += $"[{t.Id}] {t.Title}" + (t.ReminderDate.HasValue ? $" (Reminder: {t.ReminderDate.Value.ToShortDateString()})" : "") + "\n";
+                    taskList += "\nUse the ID to act on a task, e.g. 'complete task 2' or 'delete task 2'.";
                     return taskList;
+
+                case NLPHelper.Intent.CompleteTask:
+                {
+                    var match = Regex.Match(rawInput, @"\b(\d+)\b");
+                    if (match.Success && int.TryParse(match.Groups[1].Value, out int id))
+                    {
+                        _taskManager.CompleteTask(id);
+                        ActivityLogger.Log($"Task {id} completed via chat");
+                        return $"Task {id} marked as completed!";
+                    }
+                    return "Please provide the task ID. Example: 'complete task 3'";
+                }
+
+                case NLPHelper.Intent.DeleteTask:
+                {
+                    var match = Regex.Match(rawInput, @"\b(\d+)\b");
+                    if (match.Success && int.TryParse(match.Groups[1].Value, out int id))
+                    {
+                        _taskManager.DeleteTask(id);
+                        ActivityLogger.Log($"Task {id} deleted via chat");
+                        return $"Task {id} deleted!";
+                    }
+                    return "Please provide the task ID. Example: 'delete task 3'";
+                }
 
                 case NLPHelper.Intent.StartQuiz:
                     _quizManager.StartQuiz();
@@ -113,7 +147,7 @@ namespace CybersecurityChatbotPart2
                     return logText;
 
                 case NLPHelper.Intent.Help:
-                    return "I can help you with:\n- Cybersecurity topics (phishing, passwords, malware, social engineering, privacy)\n- Task management (add task, show tasks)\n- Quiz (start quiz)\n- Activity log (show activity log)\n\nJust type your request naturally!";
+                    return "I can help you with:\n- Cybersecurity topics (phishing, passwords, malware, social engineering, privacy)\n- Task management: 'add task <name>', 'show tasks', 'complete task <id>', 'delete task <id>'\n- Quiz: 'start quiz'\n- Activity log: 'show activity log'\n- Commands: 'help', 'exit'\n\nJust type your request naturally!";
 
                 default:
                     // Check if quiz is active and user is answering
@@ -148,31 +182,6 @@ namespace CybersecurityChatbotPart2
                         {
                             return "Please enter the number corresponding to your answer (1, 2, 3, or 4).";
                         }
-                    }
-
-                    // Handle task completion/deletion with ID
-                    if (intent == NLPHelper.Intent.CompleteTask)
-                    {
-                        var match = Regex.Match(rawInput, @"\b(\d+)\b");
-                        if (match.Success && int.TryParse(match.Groups[1].Value, out int id))
-                        {
-                            _taskManager.CompleteTask(id);
-                            ActivityLogger.Log($"Task {id} completed via chat");
-                            return $"Task {id} marked as completed!";
-                        }
-                        return "Please provide the task ID. Example: 'complete task 3'";
-                    }
-
-                    if (intent == NLPHelper.Intent.DeleteTask)
-                    {
-                        var match = Regex.Match(rawInput, @"\b(\d+)\b");
-                        if (match.Success && int.TryParse(match.Groups[1].Value, out int id))
-                        {
-                            _taskManager.DeleteTask(id);
-                            ActivityLogger.Log($"Task {id} deleted via chat");
-                            return $"Task {id} deleted!";
-                        }
-                        return "Please provide the task ID. Example: 'delete task 3'";
                     }
 
                     // Fall through to existing keyword recognition

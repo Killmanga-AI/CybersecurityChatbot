@@ -1,24 +1,116 @@
 <Window x:Class="CybersecurityChatbotPart2.TaskWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Task Manager" Height="450" Width="600">
-    <Grid Margin="10">
+        Title="Task Manager" Height="500" Width="660"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F6F7">
+    <Grid Margin="14">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-            <TextBox x:Name="TxtTitle" Width="150" ToolTip="Task title"/>
-            <TextBox x:Name="TxtDesc" Width="200" Margin="5,0" ToolTip="Description (optional)"/>
-            <DatePicker x:Name="DpReminder" Margin="5,0" ToolTip="Reminder date"/>
-            <Button x:Name="BtnAdd" Content="Add Task" Click="BtnAdd_Click"/>
-        </StackPanel>
-        <ListBox x:Name="LstTasks" Grid.Row="1" DisplayMemberPath="Title" SelectionChanged="LstTasks_SelectionChanged"/>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-            <Button x:Name="BtnComplete" Content="Complete" Click="BtnComplete_Click"/>
-            <Button x:Name="BtnDelete" Content="Delete" Margin="5,0" Click="BtnDelete_Click"/>
-            <Button x:Name="BtnRefresh" Content="Refresh" Click="BtnRefresh_Click"/>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="📋 Task Manager"
+                   FontSize="18" FontWeight="Bold" Margin="0,0,0,12"/>
+
+        <!-- Input form: two rows of label+control pairs, then Add button -->
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Row 0: labels -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Title *" FontWeight="SemiBold"/>
+                <TextBlock Grid.Column="2" Text="Description (optional)" FontWeight="SemiBold"/>
+                <TextBlock Grid.Column="4" Text="Reminder Date" FontWeight="SemiBold"/>
+            </Grid>
+
+            <!-- Row 2: inputs + button on same line -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="TxtTitle"    Grid.Column="0" Height="28" Padding="4,2"/>
+                <TextBox x:Name="TxtDesc"     Grid.Column="2" Height="28" Padding="4,2"/>
+                <DatePicker x:Name="DpReminder" Grid.Column="4" Height="28"/>
+                <Button x:Name="BtnAdd"       Grid.Column="6" Content="➕ Add Task"
+                        Padding="12,4" FontWeight="SemiBold" Click="BtnAdd_Click"/>
+            </Grid>
+        </Grid>
+
+        <!-- Column headers + task list -->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Column header bar -->
+            <Grid Grid.Row="0" Background="#EBEBEB">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="110"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="ID"           FontWeight="Bold" Padding="6,4" Foreground="#444"/>
+                <TextBlock Grid.Column="1" Text="Title"        FontWeight="Bold" Padding="6,4" Foreground="#444"/>
+                <TextBlock Grid.Column="2" Text="Description"  FontWeight="Bold" Padding="6,4" Foreground="#444"/>
+                <TextBlock Grid.Column="3" Text="Reminder"     FontWeight="Bold" Padding="6,4" Foreground="#444"/>
+            </Grid>
+
+            <ListBox x:Name="LstTasks" Grid.Row="1"
+                     SelectionChanged="LstTasks_SelectionChanged"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="110"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Id}"    Padding="4,3" Foreground="#777"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Title}" Padding="4,3" FontWeight="SemiBold"
+                                       TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Description}" Padding="4,3" Foreground="#555"
+                                       TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Grid.Column="3" Padding="4,3" Foreground="#555"
+                                       Text="{Binding ReminderDate, StringFormat='{}{0:dd MMM yyyy}', TargetNullValue='—'}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        <!-- Action buttons -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,0,0">
+            <Button x:Name="BtnComplete" Content="✔ Complete"  Padding="10,5" FontWeight="SemiBold" Click="BtnComplete_Click"/>
+            <Button x:Name="BtnDelete"   Content="🗑 Delete"   Padding="10,5" FontWeight="SemiBold" Margin="8,0,0,0" Click="BtnDelete_Click"/>
+            <Button x:Name="BtnRefresh"  Content="🔄 Refresh"  Padding="10,5" FontWeight="SemiBold" Margin="8,0,0,0" Click="BtnRefresh_Click"/>
+            <TextBlock VerticalAlignment="Center" Margin="12,0,0,0"
+                       Text="← Select a task first to complete or delete it"
+                       Foreground="#999" FontStyle="Italic"/>
         </StackPanel>
     </Grid>
 </Window>

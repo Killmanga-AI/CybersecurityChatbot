@@ -18,6 +18,7 @@ namespace CybersecurityChatbotPart2
         private void RefreshTasks()
         {
             var tasks = _taskManager.GetTasks();
+            LstTasks.ItemsSource = null;
             LstTasks.ItemsSource = tasks;
         }
 
